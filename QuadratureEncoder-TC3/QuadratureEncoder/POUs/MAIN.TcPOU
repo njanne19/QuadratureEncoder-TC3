@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1">
-  <POU Name="MAIN" Id="{7032c09e-f7b2-48cc-90e2-d00191d9af4f}">
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="MAIN" Id="{7032c09e-f7b2-48cc-90e2-d00191d9af4f}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
+	QuadratureEncoder_C1 : FB_QuadratureEncoder; 
 END_VAR
-]]>
-    </Declaration>
+]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[// Update encoder reading 
+QuadratureEncoder_C1(); // This internally calls everything else we need
+GVL.Encoder1NetCounts := QuadratureEncoder_C1.nNetCounts; 
+GVL.Encoder1Degrees := QuadratureEncoder_C1.rDegrees; ]]></ST>
     </Implementation>
+    <LineIds Name="MAIN">
+      <LineId Id="2" Count="0" />
+      <LineId Id="9" Count="2" />
+    </LineIds>
   </POU>
 </TcPlcObject>
